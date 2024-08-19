@@ -1,22 +1,22 @@
-"""
-URL configuration for magalu_favoritos project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter # type: ignore
+from clientes.views import ClienteViewSet, ProdutoFavoritoViewSet
 from django.urls import path
+from magalu_favoritos.views import ( # type: ignore
+    ClienteListCreateView,
+    ClienteRetrieveUpdateDeleteView,
+    ProdutoFavoritoListCreateView,
+    RemoverProdutoFavorito
+)
+
+router = DefaultRouter()
+router.register(r'clientes', ClienteViewSet)
+router.register(r'produtos_favoritos', ProdutoFavoritoViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('clientes/', ClienteListCreateView.as_view(), name='clientes'),
+    path('clientes/<int:pk>/', ClienteRetrieveUpdateDeleteView.as_view(), name='cliente-detail'),
+    path('produtos_favoritos/', ProdutoFavoritoListCreateView.as_view(), name='produtos_favoritos'),
+    path('produtos_favoritos/<int:cliente_id>/<int:produto_id>/', RemoverProdutoFavorito.as_view(), name='remover_produto_favorito'),
 ]
