@@ -57,7 +57,7 @@ Este projeto consiste em uma API RESTful desenvolvida em Django para gerenciar c
 
 - GET /api/clientes/ - Listar todos os clientes.
 - POST /api/clientes/ - Criar um novo cliente.
-- PUT /api/clientes/{id}/ - Atualizar um cliente existente.
+- PATCH /api/clientes/{id}/ - Atualizar um cliente existente.
 - DELETE /api/clientes/{id}/ - Remover um cliente.
 
 ## **Produtos Favoritos:**
